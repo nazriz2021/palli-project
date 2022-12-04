@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selva-sql
+spec:
+  selector:
+    matchLabels:
+      app: backend-mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: backend-mysql
+    spec:
+      containers:
+      - image: selvaganeshan/mysqlimage
+        name: mysql-container
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        ports:
+        - containerPort: 3306
